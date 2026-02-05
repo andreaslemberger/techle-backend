@@ -23,10 +23,7 @@ export function daysSinceReference(dateString: string): number {
 /**
  * Selects the daily word deterministically based on the current date in Berlin timezone.
  */
-export function getDailyWord(
-  words: WordEntry[],
-  now: Date = new Date(),
-): DailyWordResponse {
+export function getDailyWord(words: WordEntry[], now: Date = new Date()): DailyWordResponse {
   const dateString = getBerlinDateString(now);
   const dayIndex = daysSinceReference(dateString);
   const wordIndex = ((dayIndex % words.length) + words.length) % words.length;

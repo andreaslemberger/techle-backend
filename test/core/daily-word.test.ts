@@ -57,9 +57,7 @@ describe("getDailyWord", () => {
   it("cycles through all words", () => {
     const words = new Set<string>();
     for (let day = 0; day < TEST_WORDS.length; day++) {
-      const date = new Date(
-        `2026-01-${String(day + 1).padStart(2, "0")}T12:00:00Z`,
-      );
+      const date = new Date(`2026-01-${String(day + 1).padStart(2, "0")}T12:00:00Z`);
       const result = getDailyWord(TEST_WORDS, date);
       words.add(result.word);
     }
@@ -73,29 +71,17 @@ describe("getDailyWord", () => {
   });
 
   it("returns same word regardless of time of day in Berlin timezone", () => {
-    const morning = getDailyWord(
-      TEST_WORDS,
-      new Date("2026-01-15T06:00:00Z"),
-    );
-    const evening = getDailyWord(
-      TEST_WORDS,
-      new Date("2026-01-15T20:00:00Z"),
-    );
+    const morning = getDailyWord(TEST_WORDS, new Date("2026-01-15T06:00:00Z"));
+    const evening = getDailyWord(TEST_WORDS, new Date("2026-01-15T20:00:00Z"));
     expect(morning.word).toBe(evening.word);
     expect(morning.date).toBe(evening.date);
   });
 
   it("switches word at midnight Berlin time", () => {
     // 2026-01-15T22:59:00Z = 2026-01-15T23:59:00 CET (still Jan 15 in Berlin)
-    const beforeMidnight = getDailyWord(
-      TEST_WORDS,
-      new Date("2026-01-15T22:59:00Z"),
-    );
+    const beforeMidnight = getDailyWord(TEST_WORDS, new Date("2026-01-15T22:59:00Z"));
     // 2026-01-15T23:01:00Z = 2026-01-16T00:01:00 CET (now Jan 16 in Berlin)
-    const afterMidnight = getDailyWord(
-      TEST_WORDS,
-      new Date("2026-01-15T23:01:00Z"),
-    );
+    const afterMidnight = getDailyWord(TEST_WORDS, new Date("2026-01-15T23:01:00Z"));
     expect(beforeMidnight.date).toBe("2026-01-15");
     expect(afterMidnight.date).toBe("2026-01-16");
     expect(beforeMidnight.word).not.toBe(afterMidnight.word);

@@ -2,11 +2,7 @@ import { Stack, StackProps, Duration, CfnOutput } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, OutputFormat } from "aws-cdk-lib/aws-lambda-nodejs";
-import {
-  HttpApi,
-  HttpMethod,
-  CorsHttpMethod,
-} from "aws-cdk-lib/aws-apigatewayv2";
+import { HttpApi, HttpMethod, CorsHttpMethod } from "aws-cdk-lib/aws-apigatewayv2";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -47,10 +43,7 @@ export class TechleStack extends Stack {
     httpApi.addRoutes({
       path: "/daily-word",
       methods: [HttpMethod.GET],
-      integration: new HttpLambdaIntegration(
-        "DailyWordIntegration",
-        dailyWordFn,
-      ),
+      integration: new HttpLambdaIntegration("DailyWordIntegration", dailyWordFn),
     });
 
     new CfnOutput(this, "ApiUrl", {

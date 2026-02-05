@@ -1,13 +1,8 @@
-import type {
-  APIGatewayProxyEventV2,
-  APIGatewayProxyResultV2,
-} from "aws-lambda";
+import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import { getDailyWord } from "../../core/daily-word.js";
 import { WORDS } from "../../data/words.js";
 
-export async function handler(
-  _event: APIGatewayProxyEventV2,
-): Promise<APIGatewayProxyResultV2> {
+export async function handler(_event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
   try {
     const result = getDailyWord(WORDS);
 
